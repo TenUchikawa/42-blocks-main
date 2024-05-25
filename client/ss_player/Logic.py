@@ -46,8 +46,8 @@ class Logic:
                 return "R699"
 
         for block in blocks.blocks:
-            for x in range(board.shape_x):
-                for y in range(board.shape_y):
+            for x in range(1,board.shape_x+1):
+                for y in range(1,board.shape_y+1):
                     padded_block = None
                     try:
                         padded_block = board.PaddedBlock(board,block,Position(x,y))
