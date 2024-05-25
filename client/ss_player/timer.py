@@ -1,7 +1,7 @@
 
 import time
 
-LIMIT_TIME = 4.0
+LIMIT_TIME = 5.0
 
 class Timer:
 	def __init__(self) -> None:
@@ -12,6 +12,7 @@ class Timer:
 	
 	def check(self) -> bool:
 		now = time.time()
+		print('time: ', now - self.start_time)
 		if (LIMIT_TIME < now - self.start_time):
 			return False
 		else:

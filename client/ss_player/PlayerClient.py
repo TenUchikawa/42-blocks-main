@@ -54,25 +54,37 @@ class PlayerClient:
         turn: int
         self.board.set_board(board_str)
 
-        # 初回の配置のチェック
-        is_first = not np.any(self.board.now_board() == self.player.player_number)
-        if(is_first):
-            blocks.block_used(BlockType.R)
-            if(self.player.player_number == 1):
-                return "R244"
-            else:
-                return "R699"
+        return self.logic.get_available_actions(self.board,self.blocks,self.player)
+
+        ### 以下、mini-max法のコード
+        # # 初回の配置のチェック
+        # is_first = not np.any(self.board.now_board() == self.player.player_number)
+        # if(is_first):
+        #     blocks.block_used(BlockType.R)
+        #     if(self.player.player_number == 1):
+        #         return "R244"
+        #     else:
+        #         return "R699"
         
-        timer = Timer()
-        timer.start()
+        # timer = Timer()
+        # timer.start()
 
-        _, _, option = self.logic.get_search_value(blocks, self.board, self.player, 0, True, timer)
-        print("option: ", option)
+        # if self.player.player_number == 1:
+        #     opponent_player_number = 2
+        # else:
+        #     opponent_player_number = 1
+        # opponent_player = Player(opponent_player_number)
 
-        return option
+        # _, _, option = self.logic.get_search_value(blocks, self.board, self.player, opponent_player, 0, True, timer)
+        # print("option: ", option, '\n========================\n========================')
+
+        # if option:
+        #     blocks.block_used(BlockType[option[0]])
+        #     return option
+        # else:
+        #     return 'X000'
     
 
-        # return self.logic.get_available_actions(self.board,self.blocks,self.player)
 
         if self.player_number == 1:
             actions = self.p1Actions

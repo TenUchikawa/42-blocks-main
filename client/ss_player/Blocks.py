@@ -19,7 +19,10 @@ class Blocks:
                     # 重複していない場合のみ追加
                     self.blocks.append(Block(block_type, block_rotation))
 
-        self.blocks = reversed(self.blocks)
+        self.blocks = list(reversed(self.blocks))
+        x_block = self.blocks[0]
+        self.blocks = [self.blocks[i] for i in range(1, len(self.blocks))]
+        self.blocks.append(x_block)
 
 
     # 使用するブロックを削除する
