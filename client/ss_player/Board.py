@@ -140,24 +140,23 @@ class Board:
 
                     padded_block = None
                     try:
-                        padded_block = self.PaddedBlock(self,Block(BlockType.A,BlockRotation.Rotation_0),Position(x,y))
+                        padded_block = self.PaddedBlock(self,Block(BlockType.A,BlockRotation.Rotation_0),Position(x+1,y+1))
                     except Exception as e:
                         # TODO Errorハンドリング追加。　今は-1の場合にエラーになるのでTryCatchで回避
                         # print(e.__str__ == "index can't contain negative values")
                         # sleep(5)
                         continue
 
-                    if(not self.detect_side_connection(player=player,padded_block=padded_block) 
-                       and 
-                       not self.detect_corner_connection(player=player,padded_block=padded_block)):
-
+                    can_place = self.can_place(player,padded_block)
+                    
+                    if(can_place):
                         for xx in range(x-1,x+2):
                             for yy in range(y-1,y+2):
                                 if(xx<0 or xx>=14 or yy<0 or yy>=14):
                                     continue
                                 padded_block = None
                                 try:
-                                    padded_block = self.PaddedBlock(self,Block(BlockType.A,BlockRotation.Rotation_0),Position(xx,yy))
+                                    padded_block = self.PaddedBlock(self,Block(BlockType.A,BlockRotation.Rotation_0),Position(xx+1,yy+1))
                                 except Exception as e:
                                     # TODO Errorハンドリング追加。　今は-1の場合にエラーになるのでTryCatchで回避
                                     # print(e.__str__ == "index can't contain negative values")

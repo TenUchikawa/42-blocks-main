@@ -45,12 +45,7 @@ class Logic:
             else:
                 return "R699"
         
-        # set of (x,y)
         available_indexes = board.get_available_indexes(player)
-        print("available_indexes")
-        print(board.now_board())
-        print(available_indexes)
-        print(player.player_number)
 
         cost = 0
         for block in blocks.blocks:
@@ -76,9 +71,10 @@ class Logic:
                         blocks.block_used(block.block_type)
                         
                         print("cost",cost)
-                        
+
                         
                         return result
+        return "X000"
                     
 
 
