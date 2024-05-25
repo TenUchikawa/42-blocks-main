@@ -8,6 +8,7 @@ class Block:
 
     def __init__(self, block_type: BlockType, block_rotation: BlockRotation):
         self.__block_type = block_type
+        self.__block_rotation = block_rotation
         temp_map = block_type.block_map
         for _ in range(0, (4 - block_rotation.rotation_count()) % 4):
             temp_map = np.rot90(temp_map)
@@ -18,6 +19,10 @@ class Block:
     @property
     def block_type(self) -> BlockType:
         return self.__block_type
+    
+    @property
+    def block_rotation(self) -> BlockRotation:
+        return self.__block_rotation
 
     @property
     def block_map(self):

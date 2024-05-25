@@ -18,7 +18,7 @@ class PlayerClient:
         self.blocks = Blocks()
         self.board = Board()
         self.logic = Logic()
-        self.p1Actions = ['R244', 'B037', 'J266', 'M149', 'O763', 'R0A3', 'F0C6', 'K113', 'T021', 'L5D2', 'G251', 'E291', 'D057', 'A053']
+        self.p1Actions = ['R244', 'U023', 'J266', 'M149', 'O763', 'R0A3', 'F0C6', 'K113', 'T021', 'L5D2', 'G251', 'E291', 'D057', 'A053']
         self.p2Actions = ['R699', 'B098', 'N0A5', 'L659', 'K33B', 'J027', 'E2B9', 'C267', 'U07C', 'M3AD', 'O2BB', 'R41C']
         self.p1turn = 0
         self.p2turn = 0
@@ -47,7 +47,7 @@ class PlayerClient:
         self.board.set_board(board_str)
         
 
-        self.logic.get_available_actions(self.board,self.blocks,self.player)
+        return self.logic.get_available_actions(self.board,self.blocks,self.player)
 
         if self.player_number == 1:
             actions = self.p1Actions

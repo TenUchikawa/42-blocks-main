@@ -26,15 +26,22 @@ import numpy as np
 # D..............
 # E..............
 
+xystr = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E"]
 
 class Logic:
     def get_available_actions(self,board:Board,blocks:Blocks,player:Player):
+
+        print(board.now_board())
         is_first = not np.any(board.now_board() == player.player_number)
-        # if(is_first):
-        
-        #     for block in blocks.blocks:
-                # if(block.block_type == )
-        
+
+        print("is_first")
+        print(is_first)
+        # sleep(2)
+        if(is_first):
+            if(player.player_number == 1):
+                return "R244"
+            else:
+                return "R699"
 
         for block in blocks.blocks:
             for x in range(board.shape_x):
@@ -48,12 +55,31 @@ class Logic:
                         # sleep(5)
                         continue
 
-                    print(board.can_place(player,padded_block))
+                    # print(board.can_place(player,padded_block))
                     if(board.can_place(player,padded_block)):
+                        
+                        result = f"{block.block_type.value}{block.block_rotation.value}{xystr[x]}{xystr[y-1]}"
+                        # block.block_used(block.block_type)
+                        print(result)
                         print(board.now_board())
                         print(padded_block.block_map)
-                        sleep(1)
-                    pass
+
+                        print("padded_block.corner_map")
+                        print(padded_block.corner_map)
+                        print("padded_block.block_map")
+                        print(padded_block.block_map)
+                        print("padded_block.edge_map")
+                        print(padded_block.edge_map)
+                        print("padded_block.map")
+                        print(padded_block.map)
+                        
+
+                        
+                        # sleep(10)
+                        
+                        
+                        return result
+                    
 
 
 if __name__ == '__main__':
