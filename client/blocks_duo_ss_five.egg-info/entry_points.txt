@@ -1,0 +1,2 @@
+[console_scripts]
+ss_five = ss_player.main:main

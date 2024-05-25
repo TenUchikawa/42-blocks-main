@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: blocks_duo_ss_five
+Version: 0.0.1
+Summary: smartscape blocks-duo player package
+Author: Team five
+Classifier: Programming Language :: Python :: 3.8
+Requires-Dist: setuptools==69.5.1
+Requires-Dist: websockets==12.0
