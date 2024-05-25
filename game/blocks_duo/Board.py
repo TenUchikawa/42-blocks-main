@@ -102,7 +102,6 @@ class Board:
                 for b in row])
             ret.append(f'{row_id}{"".join(row_str)}')
         return '\n'.join(ret)
-
     class PaddedBlock:
 
         def __init__(self, board: Board, block: Block, position: Position):

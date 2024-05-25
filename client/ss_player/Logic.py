@@ -35,8 +35,8 @@ class Logic:
         print(board.now_board())
         is_first = not np.any(board.now_board() == player.player_number)
 
-        print("is_first")
-        print(is_first)
+        # print("is_first")
+        # print(is_first)
         # sleep(2)
         if(is_first):
             blocks.block_used(BlockType.R)
@@ -44,10 +44,22 @@ class Logic:
                 return "R244"
             else:
                 return "R699"
+        
+        # set of (x,y)
+        available_indexes = board.get_available_indexes(player)
+        print("available_indexes")
+        print(board.now_board())
+        print(available_indexes)
+        print(player.player_number)
 
+        cost = 0
         for block in blocks.blocks:
             for x in range(1,board.shape_x+1):
                 for y in range(1,board.shape_y+1):
+                    if (x,y) not in available_indexes:
+                        continue
+                    cost += 1
+
                     padded_block = None
                     try:
                         padded_block = board.PaddedBlock(board,block,Position(x,y))
@@ -61,29 +73,9 @@ class Logic:
                     if(board.can_place(player,padded_block)):
                         
                         result = f"{block.block_type.value}{block.block_rotation.value}{xystr[x-1]}{xystr[y-1]}"
-                        # block.block_used(block.block_type)
-                        print("result")
-                        print(result)
-                        print("player num")
-                        print(player.player_number)
-                        print(padded_block.block_map)
                         blocks.block_used(block.block_type)
-
-                        # print(board.now_board())
-                        # print(padded_block.block_map)
-
-                        # print("padded_block.corner_map")
-                        # print(padded_block.corner_map)
-                        # print("padded_block.block_map")
-                        # print(padded_block.block_map)
-                        # print("padded_block.edge_map")
-                        # print(padded_block.edge_map)
-                        # print("padded_block.map")
-                        # print(padded_block.map)
                         
-
-                        
-                        # sleep(10)
+                        print("cost",cost)
                         
                         
                         return result

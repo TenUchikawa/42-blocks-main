@@ -4,6 +4,9 @@ import numpy as np
 from ss_player.Block import Block
 from ss_player.Player import Player
 from ss_player.Position import Position
+from ss_player.BlockType import BlockType
+from ss_player.BlockRotation import BlockRotation
+
 
 EmptyChar = '.'
 Player1Char = 'o'
@@ -125,6 +128,49 @@ class Board:
                 for b in row])
             ret.append(f'{row_id}{"".join(row_str)}')
         return '\n'.join(ret)
+    
+    def get_available_indexes(self,player:Player):
+        available_indexes = set()
+
+        for x in range(14):
+            for y in range(14):
+                if self.__board[y, x] == 0:
+                    if((x,y) in available_indexes):
+                        continue
+
+                    padded_block = None
+                    try:
+                        padded_block = self.PaddedBlock(self,Block(BlockType.A,BlockRotation.Rotation_0),Position(x,y))
+                    except Exception as e:
+                        # TODO Errorハンドリング追加。　今は-1の場合にエラーになるのでTryCatchで回避
+                        # print(e.__str__ == "index can't contain negative values")
+                        # sleep(5)
+                        continue
+
+                    if(not self.detect_side_connection(player=player,padded_block=padded_block) 
+                       and 
+                       not self.detect_corner_connection(player=player,padded_block=padded_block)):
+
+                        for xx in range(x-1,x+2):
+                            for yy in range(y-1,y+2):
+                                if(xx<0 or xx>=14 or yy<0 or yy>=14):
+                                    continue
+                                padded_block = None
+                                try:
+                                    padded_block = self.PaddedBlock(self,Block(BlockType.A,BlockRotation.Rotation_0),Position(xx,yy))
+                                except Exception as e:
+                                    # TODO Errorハンドリング追加。　今は-1の場合にエラーになるのでTryCatchで回避
+                                    # print(e.__str__ == "index can't contain negative values")
+                                    # sleep(5)
+                                    continue
+                                if(self.__board[yy,xx] == 0 and not self.detect_side_connection(player=player,padded_block=padded_block)):
+                                    available_indexes.add((xx, yy))
+        return available_indexes
+
+
+
+    
+
 
     class PaddedBlock:
 
