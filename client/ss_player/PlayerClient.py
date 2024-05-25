@@ -34,7 +34,6 @@ class PlayerClient:
         while True:
             board_str = await self._socket.recv()
             action = self.create_action(board_str)
-            open('log.txt', 'a').write(f'{self.player_number} {action}\n')
             await self._socket.send(action)
             if action == 'X000':
                 raise SystemExit
