@@ -6,7 +6,14 @@ from ss_player.Board import Board
 from ss_player.Logic import Logic 
 from ss_player.Player import Player
 
+import numpy as np
 
+from ss_player.timer import Timer
+from ss_player.BlockType import BlockType
+
+
+blocks = Blocks()
+xystr = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E"]
 
 
 class PlayerClient:
@@ -46,9 +53,26 @@ class PlayerClient:
         actions: list[str]
         turn: int
         self.board.set_board(board_str)
-        
 
-        return self.logic.get_available_actions(self.board,self.blocks,self.player)
+        # 初回の配置のチェック
+        is_first = not np.any(self.board.now_board() == self.player.player_number)
+        if(is_first):
+            blocks.block_used(BlockType.R)
+            if(self.player.player_number == 1):
+                return "R244"
+            else:
+                return "R699"
+        
+        timer = Timer()
+        timer.start()
+
+        _, _, option = self.logic.get_search_value(blocks, self.board, self.player, 0, True, timer)
+        print("option: ", option)
+
+        return option
+    
+
+        # return self.logic.get_available_actions(self.board,self.blocks,self.player)
 
         if self.player_number == 1:
             actions = self.p1Actions

@@ -116,6 +116,9 @@ class Board:
     def place_block(self, player: Player, padded_block: PaddedBlock):
         self.__board += padded_block.block_map * player.player_number
 
+    def unplace_block(self, player: Player, padded_block: PaddedBlock):
+        self.__board -= padded_block.block_map * player.player_number
+
     def to_print_string(self) -> str:
         row_ids = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E']
 
@@ -129,7 +132,7 @@ class Board:
             ret.append(f'{row_id}{"".join(row_str)}')
         return '\n'.join(ret)
     
-    def get_available_indexes(self,player:Player):
+    def get_available_indexes(self,player: Player) -> set[tuple[int, int]]:
         available_indexes = set()
 
         for x in range(14):
@@ -150,8 +153,8 @@ class Board:
                     can_place = self.can_place(player,padded_block)
                     
                     if(can_place):
-                        for xx in range(x-1,x+2):
-                            for yy in range(y-1,y+2):
+                        for xx in range(x-5,x+5):
+                            for yy in range(y-5,y+5):
                                 if(xx<0 or xx>=14 or yy<0 or yy>=14):
                                     continue
                                 padded_block = None
