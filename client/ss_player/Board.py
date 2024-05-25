@@ -33,7 +33,7 @@ class Board:
             self.set_board(initial_board)
     def set_board(self,board:str):
         for y, row in enumerate(board.split('\n')[1:]):
-            for x, c in enumerate(row):
+            for x, c in enumerate(row[1:]):
                 if c == Player1Char:
                     self.__board[y, x] = 1
                 elif c == Player2Char:

@@ -3,6 +3,7 @@ from ss_player.Board import Board
 from ss_player.Blocks import Blocks
 from ss_player.Position import Position
 from ss_player.Player import Player
+from ss_player.BlockType import BlockType
 from time import sleep
 import numpy as np
 
@@ -26,7 +27,7 @@ import numpy as np
 # D..............
 # E..............
 
-xystr = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E"]
+xystr = ["1","2","3","4","5","6","7","8","9","A","B","C","D","E"]
 
 class Logic:
     def get_available_actions(self,board:Board,blocks:Blocks,player:Player):
@@ -38,6 +39,7 @@ class Logic:
         print(is_first)
         # sleep(2)
         if(is_first):
+            blocks.block_used(BlockType.R)
             if(player.player_number == 1):
                 return "R244"
             else:
@@ -58,20 +60,26 @@ class Logic:
                     # print(board.can_place(player,padded_block))
                     if(board.can_place(player,padded_block)):
                         
-                        result = f"{block.block_type.value}{block.block_rotation.value}{xystr[x]}{xystr[y-1]}"
+                        result = f"{block.block_type.value}{block.block_rotation.value}{xystr[x-1]}{xystr[y-1]}"
                         # block.block_used(block.block_type)
+                        print("result")
                         print(result)
-                        print(board.now_board())
+                        print("player num")
+                        print(player.player_number)
                         print(padded_block.block_map)
+                        blocks.block_used(block.block_type)
 
-                        print("padded_block.corner_map")
-                        print(padded_block.corner_map)
-                        print("padded_block.block_map")
-                        print(padded_block.block_map)
-                        print("padded_block.edge_map")
-                        print(padded_block.edge_map)
-                        print("padded_block.map")
-                        print(padded_block.map)
+                        # print(board.now_board())
+                        # print(padded_block.block_map)
+
+                        # print("padded_block.corner_map")
+                        # print(padded_block.corner_map)
+                        # print("padded_block.block_map")
+                        # print(padded_block.block_map)
+                        # print("padded_block.edge_map")
+                        # print(padded_block.edge_map)
+                        # print("padded_block.map")
+                        # print(padded_block.map)
                         
 
                         
