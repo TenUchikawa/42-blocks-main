@@ -6,15 +6,6 @@ from ss_player.Board import Board
 from ss_player.Logic import Logic 
 from ss_player.Player import Player
 
-import numpy as np
-
-from ss_player.timer import Timer
-from ss_player.BlockType import BlockType
-
-
-blocks = Blocks()
-xystr = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E"]
-
 
 class PlayerClient:
     def __init__(self, player_number: int, socket: websockets.WebSocketClientProtocol, loop: asyncio.AbstractEventLoop):

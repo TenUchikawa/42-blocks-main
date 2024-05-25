@@ -8,6 +8,7 @@ from ss_player.Block import Block
 from ss_player.timer import Timer
 from time import sleep
 import numpy as np
+import random 
 
 
 DEPTH = 2
@@ -48,35 +49,33 @@ class Logic:
             else:
                 return "R699"
         
-        available_indexes = board.get_available_indexes(player)
+        available_indexes = list(board.get_available_indexes(player))
+        random.shuffle(available_indexes)
 
         cost = 0
         for block in blocks.blocks:
-            for x in range(1,board.shape_x+1): # available_indexesとの整合性取れてない？
-                for y in range(1,board.shape_y+1):
-                    if (x,y) not in available_indexes:
-                        continue
-                    cost += 1
+            for (x,y) in available_indexes:
+                cost += 1
 
-                    padded_block = None
-                    try:
-                        padded_block = board.PaddedBlock(board, block, Position(x, y))
-                    except Exception as e:
-                        # TODO Errorハンドリング追加。　今は-1の場合にエラーになるのでTryCatchで回避
-                        # print(e.__str__ == "index can't contain negative values")
-                        # sleep(5)
-                        continue
+                padded_block = None
+                try:
+                    padded_block = board.PaddedBlock(board,block,Position(x+1,y+1))
+                except Exception as e:
+                    # TODO Errorハンドリング追加。　今は-1の場合にエラーになるのでTryCatchで回避
+                    # print(e.__str__ == "index can't contain negative values")
+                    # sleep(5)
+                    continue
 
-                    # print(board.can_place(player,padded_block))
-                    if(board.can_place(player,padded_block)):
-                        
-                        result = f"{block.block_type.value}{block.block_rotation.value}{xystr[x-1]}{xystr[y-1]}"
-                        blocks.block_used(block.block_type)
-                        
-                        print("cost",cost)
+                # print(board.can_place(player,padded_block))
+                if(board.can_place(player,padded_block)):
+                    
+                    result = f"{block.block_type.value}{block.block_rotation.value}{xystr[x]}{xystr[y]}"
+                    blocks.block_used(block.block_type)
+                    
+                    print("cost",cost)
 
-                        
-                        return result
+                    
+                    return result
         return "X000"
     
 

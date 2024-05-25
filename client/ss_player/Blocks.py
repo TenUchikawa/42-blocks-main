@@ -3,27 +3,43 @@ from ss_player.Block import Block
 from ss_player.BlockType import BlockType
 from ss_player.BlockRotation import BlockRotation
 import numpy as np
+import random
+import itertools
 
 class Blocks:
     def __init__(self):
         self.blocks: list[Block] = []
+        raw_blocks_list: list[Block] = []
         for block_type in BlockType:
             for block_rotation in BlockRotation:
                 dup = False
-                for block in self.blocks:
+                for block in raw_blocks_list:
                     new_block = Block(block_type, block_rotation)
                     if block.block_type == block_type and np.array_equal(block.block_map, new_block.block_map):
                         dup = True
                         break
                 if not dup:
                     # 重複していない場合のみ追加
-                    self.blocks.append(Block(block_type, block_rotation))
+                    raw_blocks_list.append(Block(block_type, block_rotation))
 
-        self.blocks = list(reversed(self.blocks))
-        x_block = self.blocks[0]
-        self.blocks = [self.blocks[i] for i in range(1, len(self.blocks))]
-        self.blocks.append(x_block)
+        one_part_blocks = [raw_blocks_list[0]]
+        two_part_blocks = [raw_blocks_list[1]]
+        three_part_blocks = raw_blocks_list[2:4]
+        four_part_blocks = raw_blocks_list[4:9]
+        five_part_blocks = raw_blocks_list[9:-1]
 
+        all_block_lists = [five_part_blocks, four_part_blocks, three_part_blocks, two_part_blocks, one_part_blocks]
+        for block_list in all_block_lists:
+            random.shuffle(block_list)
+
+        for blocks in all_block_lists:
+            for block in blocks:
+                self.blocks.append(block)
+        
+        print("all_block_list len ")
+        print(len(self.blocks))
+        print(self.blocks)
+        
 
     # 使用するブロックを削除する
     def block_used(self,block_type:BlockType):
