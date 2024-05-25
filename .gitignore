@@ -1,0 +1,12 @@
+/.venv/
+/.idea/
+/client/.venv/
+/game/.venv/
+/game/blocks_duo_ss.egg-info/
+/game/build/
+/venv/
+/client/blocks_duo_ss_tarou.egg-info/
+/client/build/
+/ssvenv/
+*.log
+__pycache__
